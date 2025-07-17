@@ -18,7 +18,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Enhance GitHub Issue
-        uses: malcmiller/issue-enhancer-agent@v1.0.0
+        uses: malcmiller/issue-enhancer-agent@v1.0.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           openai_api_key: ${{ secrets.OPENAI_API_KEY }}
