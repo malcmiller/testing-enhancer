@@ -2,8 +2,9 @@ name: Enhance Github Issue
 
 on:
   issues:
-    types:
-      - opened
+    types: [opened, edited]
+  issue_comment:
+    types: [created]
 
 jobs:
   enhance-github-issue:
@@ -15,12 +16,14 @@ jobs:
 
     steps:
       - name: Enhance GitHub Issue
-        uses: malcmiller/issue-enhancer-agent@v1.0.0
+        uses: malcmiller/tpm-agent@v1
         with:
+          check_all: "True"
+          github_event_name: ${{ github.event_name }}
+          github_issue_id: ${{ github.event.issue.number }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          openai_api_key: ${{ secrets.OPENAI_API_KEY }}
-          azure_openai_endpoint: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
-          azure_openai_deployment: ${{ secrets.AZURE_OPENAI_DEPLOYMENT }}
-          issue_id: ${{ github.event.issue.number }}
-          issue_title: ${{ github.event.issue.title }}
-          issue_body: ${{ github.event.issue.body }}
+          github_issue_comment_id: ${{ github.event.comment.id }}
+          azure_openai_target_uri: ${{ secrets.AZURE_OPENAI_TARGET_URI }}
+          azure_openai_api_key: ${{ secrets.AZURE_OPENAI_API_KEY }}
+          repository: ${{ github.repository }}
+
